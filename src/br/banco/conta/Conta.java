@@ -1,5 +1,8 @@
 package br.banco.conta;
 
+import br.exception.SaldoInsuficienteException;
+import br.exception.ValorInvalidoException;
+
 public abstract class Conta {
 	
 	protected final int numero;

@@ -1,4 +1,4 @@
-package br.banco.conta;
+package br.exception;
 
 @SuppressWarnings("serial")
 public class ValorInvalidoException extends Exception {
