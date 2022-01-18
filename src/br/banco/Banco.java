@@ -8,6 +8,7 @@ import br.banco.conta.ContaPoupanca;
 import br.banco.conta.ContaCorrente;
 import br.exception.ValorInvalidoException;
 import br.exception.SaldoInsuficienteException;
+import br.exception.CpfInvalidoException;
 
 public class Banco {
 
@@ -19,7 +20,13 @@ public class Banco {
 		return clientes.get(cpf);
 	}
 
-	public static void adicionarCliente(int cpf, String nome) {
+	public static TreeMap<Integer, Cliente> getClientes() {
+		return clientes;
+	}
+
+	public static void adicionarCliente(int cpf, String nome) throws CpfInvalidoException {
+		if (clientes.containsKey(cpf)) throw new CpfInvalidoException();
+
 		clientes.put(cpf, new Cliente(cpf, nome));
 	}
 
