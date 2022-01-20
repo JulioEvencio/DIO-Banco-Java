@@ -48,8 +48,6 @@ public class Main extends JFrame {
 		this.setResizable(false);
 
 		Font fontTitulo = new Font("Sans Serif", Font.BOLD, 25);
-		Font fontTexto = new Font("Sans Serif", Font.BOLD, 15);
-		Font fontCampo = new Font("Sans Serif", Font.PLAIN, 15);
 		Font fontBotao = new Font("Sans Serif", Font.BOLD, 15);
 
 		panel = new JPanel();
