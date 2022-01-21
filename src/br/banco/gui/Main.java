@@ -123,7 +123,7 @@ public class Main extends JFrame {
 	}
 
 	private void criarConta() {
-		// Code
+		new CriarConta(this).setVisible(true);
 	}
 
 	private void sair() {
