@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class Main extends JFrame {
@@ -22,7 +23,7 @@ public class Main extends JFrame {
 
 	private JMenuBar menuBar;
 
-	private JMenu menuContas;
+	private JMenu menuOpcoes;
 	private JMenuItem menuCriarConta;
 	private JMenuItem menuSair;
 
@@ -65,20 +66,20 @@ public class Main extends JFrame {
 		menuBar.setBorder(new EmptyBorder(0, 10, 0, 10));
 		this.setJMenuBar(menuBar);
 
-		menuContas = new JMenu("Contas");
-		menuBar.add(menuContas);
+		menuOpcoes = new JMenu("Opções");
+		menuBar.add(menuOpcoes);
 
 		menuCriarConta = new JMenuItem("Criar Conta");
 		menuCriarConta.addActionListener((ActionEvent) -> {
 			this.criarConta();
 		});
-		menuContas.add(menuCriarConta);
+		menuOpcoes.add(menuCriarConta);
 
 		menuSair = new JMenuItem("Sair");
 		menuSair.addActionListener((ActionEvent) -> {
 			this.sair();
 		});
-		menuContas.add(menuSair);
+		menuOpcoes.add(menuSair);
 
 		menuSobre = new JMenu("Sobre");
 		menuBar.add(menuSobre);
@@ -131,7 +132,8 @@ public class Main extends JFrame {
 	}
 
 	private void exibirInfo() {
-		// Code
+		String info = "Banco Java --versão 1.0\n\nDesenvolvido por Júlio Evêncio";
+		JOptionPane.showMessageDialog(this, info, "Sobre", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void depositar() {
