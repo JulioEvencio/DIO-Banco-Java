@@ -9,7 +9,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
@@ -23,20 +22,20 @@ public class Main extends JFrame {
 
 	private JMenuBar menuBar;
 
-	private JMenu menuOpcoes;
+	private JMenu menuContas;
 	private JMenuItem menuCriarConta;
 	private JMenuItem menuSair;
+
+	private JMenu menuOperacoes;
+	private JMenuItem menuDepositar;
+	private JMenuItem menuSacar;
+	private JMenuItem menuTransferir;
 
 	private JMenu menuSobre;
 	private JMenuItem menuInfo;
 
 	private JPanel panelTitulo;
 	private JLabel lblTitulo;
-
-	private JPanel panelBotao;
-	private JButton btnDepositar;
-	private JButton btnSacar;
-	private JButton btnTransferir;
 
 	public Main() {
 		this.iniciarComponentes();
@@ -50,7 +49,6 @@ public class Main extends JFrame {
 		this.setResizable(false);
 
 		Font fontTitulo = new Font("Sans Serif", Font.BOLD, 25);
-		Font fontBotao = new Font("Sans Serif", Font.BOLD, 15);
 
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -66,20 +64,41 @@ public class Main extends JFrame {
 		menuBar.setBorder(new EmptyBorder(0, 10, 0, 10));
 		this.setJMenuBar(menuBar);
 
-		menuOpcoes = new JMenu("Opções");
-		menuBar.add(menuOpcoes);
+		menuContas = new JMenu("Contas");
+		menuBar.add(menuContas);
 
 		menuCriarConta = new JMenuItem("Criar Conta");
 		menuCriarConta.addActionListener((ActionEvent) -> {
 			this.criarConta();
 		});
-		menuOpcoes.add(menuCriarConta);
+		menuContas.add(menuCriarConta);
 
 		menuSair = new JMenuItem("Sair");
 		menuSair.addActionListener((ActionEvent) -> {
 			this.sair();
 		});
-		menuOpcoes.add(menuSair);
+		menuContas.add(menuSair);
+
+		menuOperacoes = new JMenu("Operações");
+		menuBar.add(menuOperacoes);
+
+		menuDepositar = new JMenuItem("Depositar");
+		menuDepositar.addActionListener((ActionEvent) -> {
+			this.depositar();
+		});
+		menuOperacoes.add(menuDepositar);
+
+		menuSacar = new JMenuItem("Sacar");
+		menuSacar.addActionListener((ActionEvent) -> {
+			this.sacar();
+		});
+		menuOperacoes.add(menuSacar);
+
+		menuTransferir = new JMenuItem("Transferir");
+		menuTransferir.addActionListener((ActionEvent) -> {
+			this.transferir();
+		});
+		menuOperacoes.add(menuTransferir);
 
 		menuSobre = new JMenu("Sobre");
 		menuBar.add(menuSobre);
@@ -96,30 +115,6 @@ public class Main extends JFrame {
 		lblTitulo = new JLabel("Bem vindo, Fulano!");
 		lblTitulo.setFont(fontTitulo);
 		panelTitulo.add(lblTitulo);
-
-		panelBotao = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		panelBorda.add(panelBotao);
-
-		btnDepositar = new JButton("Depositar");
-		btnDepositar.setFont(fontBotao);
-		btnDepositar.addActionListener((ActionEvent) -> {
-			this.depositar();
-		});
-		panelBotao.add(btnDepositar);
-
-		btnSacar = new JButton("Sacar");
-		btnSacar.setFont(fontBotao);
-		btnSacar.addActionListener((ActionEvent) -> {
-			this.sacar();
-		});
-		panelBotao.add(btnSacar);
-
-		btnTransferir = new JButton("Transferir");
-		btnTransferir.setFont(fontBotao);
-		btnTransferir.addActionListener((ActionEvent) -> {
-			this.transferir();
-		});
-		panelBotao.add(btnTransferir);
 	}
 
 	private void criarConta() {
