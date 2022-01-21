@@ -111,7 +111,8 @@ public class Login extends JFrame {
 	}
 
 	private void entrar() {
-		// Code
+		new Main().setVisible(true);
+		this.dispose();
 	}
 
 	private void cadastrar() {

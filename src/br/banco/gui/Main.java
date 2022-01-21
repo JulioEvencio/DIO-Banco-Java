@@ -24,6 +24,7 @@ public class Main extends JFrame {
 
 	private JMenu menuContas;
 	private JMenuItem menuCriarConta;
+	private JMenuItem menuSair;
 
 	private JMenu menuSobre;
 	private JMenuItem menuInfo;
@@ -73,6 +74,12 @@ public class Main extends JFrame {
 		});
 		menuContas.add(menuCriarConta);
 
+		menuSair = new JMenuItem("Sair");
+		menuSair.addActionListener((ActionEvent) -> {
+			this.sair();
+		});
+		menuContas.add(menuSair);
+
 		menuSobre = new JMenu("Sobre");
 		menuBar.add(menuSobre);
 
@@ -118,6 +125,11 @@ public class Main extends JFrame {
 		// Code
 	}
 
+	private void sair() {
+		new Login().setVisible(true);
+		this.dispose();
+	}
+
 	private void exibirInfo() {
 		// Code
 	}
@@ -132,10 +144,6 @@ public class Main extends JFrame {
 
 	private void transferir() {
 		new Transferir(this).setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new Main().setVisible(true);
 	}
 
 }
