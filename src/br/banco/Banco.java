@@ -1,6 +1,7 @@
 package br.banco;
 
 import java.util.TreeMap;
+import java.util.ArrayList;
 import br.banco.pessoa.Cliente;
 import br.exception.AbrirContaException;
 import br.banco.conta.Conta;
@@ -20,14 +21,27 @@ public class Banco {
 		return clientes.get(cpf);
 	}
 
-	public static TreeMap<Integer, Cliente> getClientes() {
-		return clientes;
+	public static ArrayList<Integer> getContas() {
+		ArrayList<Integer> contas = new ArrayList<>();
+
+		for (Cliente cliente: clientes.values()) {
+			if (cliente.getContaPoupanca() != null) {
+				contas.add(cliente.getContaPoupanca().getNumero());
+			}
+
+			if (cliente.getContaCorrente() != null) {
+				contas.add(cliente.getContaCorrente().getNumero());
+			}
+		}
+
+		return contas;
 	}
 
-	public static void adicionarCliente(int cpf, String nome) throws CpfInvalidoException {
+
+	public static void cadastrarCliente(int cpf, String nome, String senha) throws CpfInvalidoException {
 		if (clientes.containsKey(cpf)) throw new CpfInvalidoException();
 
-		clientes.put(cpf, new Cliente(cpf, nome));
+		clientes.put(cpf, new Cliente(cpf, nome, senha));
 	}
 
 	public static void abrirContaPoupanca(int cpf) throws AbrirContaException {
@@ -42,11 +56,12 @@ public class Banco {
 		contasAbertasTotal++;
 	}
 
+	
 	public static void depositar(int cpf, double valor, Conta conta) throws ValorInvalidoException {
 		clientes.get(cpf).depositar(valor, conta);
 	}
 
-	public static void sacar(int cpf, double valor, Conta conta) throws SaldoInsuficienteException {
+	public static void sacar(int cpf, double valor, Conta conta) throws ValorInvalidoException, SaldoInsuficienteException {
 		clientes.get(cpf).sacar(valor, conta);
 	}
 

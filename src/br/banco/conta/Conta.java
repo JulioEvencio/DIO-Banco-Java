@@ -6,7 +6,7 @@ import br.exception.ValorInvalidoException;
 public abstract class Conta {
 	
 	protected final int numero;
-	protected int agencia;
+	protected final int agencia;
 	protected double saldo;
 
 	public Conta(int numero, int agencia) {
@@ -33,7 +33,8 @@ public abstract class Conta {
 		saldo += valor;
 	}
 
-	public void sacar(double valor) throws SaldoInsuficienteException {
+	public void sacar(double valor) throws ValorInvalidoException, SaldoInsuficienteException {
+		if (valor <= 0) throw new ValorInvalidoException();
 		if (valor > saldo) throw new SaldoInsuficienteException();
 
 		saldo -= valor;

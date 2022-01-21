@@ -4,10 +4,12 @@ public abstract class Pessoa {
 
 	protected final int cpf;
 	protected final String nome;
+	protected final String senha;
 
-	public Pessoa(int cpf, String nome) {
+	public Pessoa(int cpf, String nome, String senha) {
 		this.cpf = cpf;
 		this.nome = nome;
+		this.senha = senha;
 	}
 
 	public int getCpf() {
@@ -16,6 +18,11 @@ public abstract class Pessoa {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public boolean logar(int cpf, String senha) {
+		if (this.cpf == cpf && this.senha.equals(senha)) return true;
+		else return false;
 	}
 
 }

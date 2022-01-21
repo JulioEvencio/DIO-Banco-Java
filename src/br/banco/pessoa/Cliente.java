@@ -12,8 +12,8 @@ public class Cliente extends Pessoa {
 	private ContaPoupanca contaPoupanca;
 	private ContaCorrente contaCorrente;
 
-	public Cliente(int cpf, String nome) {
-		super(cpf, nome);
+	public Cliente(int cpf, String nome, String senha) {
+		super(cpf, nome, senha);
 		this.contaPoupanca = null;
 		this.contaCorrente = null;
 	}
@@ -42,7 +42,7 @@ public class Cliente extends Pessoa {
 		conta.depositar(valor);
 	}
 
-	public void sacar(double valor, Conta conta) throws SaldoInsuficienteException {
+	public void sacar(double valor, Conta conta) throws ValorInvalidoException, SaldoInsuficienteException {
 		conta.sacar(valor);
 	}
 
