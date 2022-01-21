@@ -1,5 +1,6 @@
 package br.banco.gui;
 
+import br.banco.Banco;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -112,7 +113,7 @@ public class Main extends JFrame {
 		panelTitulo = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panelBorda.add(panelTitulo);
 
-		lblTitulo = new JLabel("Bem vindo, Fulano!");
+		lblTitulo = new JLabel("Bem vindo, " + Banco.getUsuarioLogado().getNome() + "!");
 		lblTitulo.setFont(fontTitulo);
 		panelTitulo.add(lblTitulo);
 	}
@@ -122,6 +123,7 @@ public class Main extends JFrame {
 	}
 
 	private void sair() {
+		Banco.deslogar();
 		new Login().setVisible(true);
 		this.dispose();
 	}

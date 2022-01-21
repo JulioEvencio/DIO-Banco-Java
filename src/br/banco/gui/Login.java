@@ -1,5 +1,6 @@
 package br.banco.gui;
 
+import br.banco.Banco;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class Login extends JFrame {
@@ -111,8 +113,21 @@ public class Login extends JFrame {
 	}
 
 	private void entrar() {
-		new Main().setVisible(true);
-		this.dispose();
+		try {
+			int cpf = Integer.parseInt(txtCpf.getText());
+			String senha = new String(txtSenha.getPassword());
+
+			if (Banco.logar(cpf, senha)) {
+				new Main().setVisible(true);
+				this.dispose();
+			} else {
+				String info = "Acesso negado!";
+				JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+			}
+		} catch (NumberFormatException e) {
+			String info = "Acesso negado!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 	private void cadastrar() {

@@ -45,6 +45,8 @@ public class Banco {
 	}
 
 	public static boolean logar(int cpf, String senha) {
+		if (!clientes.containsKey(cpf)) return false;
+
 		if (clientes.get(cpf).logar(cpf, senha)) usuarioLogado = cpf;
 		else return false;
 
