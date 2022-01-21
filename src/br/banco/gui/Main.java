@@ -131,7 +131,7 @@ public class Main extends JFrame {
 	}
 
 	private void transferir() {
-		// Code
+		new Transferir(this).setVisible(true);
 	}
 
 	public static void main(String[] args) {
