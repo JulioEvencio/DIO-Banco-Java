@@ -123,7 +123,7 @@ public class Main extends JFrame {
 	}
 
 	private void depositar() {
-		// Code
+		new Depositar(this).setVisible(true);
 	}
 
 	private void sacar() {
