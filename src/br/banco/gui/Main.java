@@ -24,7 +24,7 @@ public class Main extends JFrame {
 	private JMenuBar menuBar;
 
 	private JMenu menuContas;
-	private JMenuItem menuCriarConta;
+	private JMenuItem menuAbrirConta;
 	private JMenuItem menuSair;
 
 	private JMenu menuOperacoes;
@@ -68,11 +68,11 @@ public class Main extends JFrame {
 		menuContas = new JMenu("Contas");
 		menuBar.add(menuContas);
 
-		menuCriarConta = new JMenuItem("Criar Conta");
-		menuCriarConta.addActionListener((ActionEvent) -> {
-			this.criarConta();
+		menuAbrirConta = new JMenuItem("Abrir Conta");
+		menuAbrirConta.addActionListener((ActionEvent) -> {
+			this.abrirConta();
 		});
-		menuContas.add(menuCriarConta);
+		menuContas.add(menuAbrirConta);
 
 		menuSair = new JMenuItem("Sair");
 		menuSair.addActionListener((ActionEvent) -> {
@@ -118,8 +118,8 @@ public class Main extends JFrame {
 		panelTitulo.add(lblTitulo);
 	}
 
-	private void criarConta() {
-		new CriarConta(this).setVisible(true);
+	private void abrirConta() {
+		new AbrirConta(this).setVisible(true);
 	}
 
 	private void sair() {

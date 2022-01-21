@@ -1,5 +1,7 @@
 package br.banco.gui;
 
+import br.banco.Banco;
+import br.exception.AbrirContaException;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -13,9 +15,10 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
-public class CriarConta extends JDialog {
+public class AbrirConta extends JDialog {
 
 	private JPanel panel;
 	private JPanel panelBorda;
@@ -30,9 +33,9 @@ public class CriarConta extends JDialog {
 	private JRadioButton txtContaCorrente;
 
 	private JPanel panelBotao;
-	private JButton btnCadastrar;
+	private JButton btnAbrirConta;
 
-	public CriarConta(JFrame frame) {
+	public AbrirConta(JFrame frame) {
 		super(frame, true);
 		this.iniciarComponentes();
 	}
@@ -62,7 +65,7 @@ public class CriarConta extends JDialog {
 		panelTitulo = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panelBorda.add(panelTitulo);
 
-		lblTitulo = new JLabel("Criar Conta");
+		lblTitulo = new JLabel("Abrir Conta");
 		lblTitulo.setFont(fontTitulo);
 		panelTitulo.add(lblTitulo);
 
@@ -89,16 +92,30 @@ public class CriarConta extends JDialog {
 		panelBotao = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelBorda.add(panelBotao);
 
-		btnCadastrar = new JButton("Criar Conta");
-		btnCadastrar.setFont(fontBotao);
-		btnCadastrar.addActionListener((ActionEvent) -> {
-			this.criar();
+		btnAbrirConta = new JButton("Abrir Conta");
+		btnAbrirConta.setFont(fontBotao);
+		btnAbrirConta.addActionListener((ActionEvent) -> {
+			this.abrirConta();
 		});
-		panelBotao.add(btnCadastrar);
+		panelBotao.add(btnAbrirConta);
 	}
 
-	private void criar() {
-		// Code
+	private void abrirConta() {
+		try {
+			if (txtContaPoupanca.isSelected()) {
+				Banco.abrirContaPoupanca();
+			} else {
+				Banco.abrirContaCorrente();
+			}
+
+			String info = "Conta aberta com sucesso!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.INFORMATION_MESSAGE);
+
+			this.dispose();
+		} catch (AbrirContaException e) {
+			String info = "Erro ao abrir conta!\nVocê não pode ter 2 contas\npoupanças ou correntes, somente uma de\ncada!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }

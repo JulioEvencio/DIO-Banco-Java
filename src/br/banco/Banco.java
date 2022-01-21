@@ -57,28 +57,28 @@ public class Banco {
 		usuarioLogado = -1;
 	}
 
-	public static void abrirContaPoupanca(int cpf) throws AbrirContaException {
-		clientes.get(cpf).abrirConta(new ContaPoupanca(contasAbertasTotal, AGENCIA));
+	public static void abrirContaPoupanca() throws AbrirContaException {
+		clientes.get(usuarioLogado).abrirConta(new ContaPoupanca(contasAbertasTotal, AGENCIA));
 
 		contasAbertasTotal++;
 	}
 
-	public static void abrirContaCorrente(int cpf) throws AbrirContaException {
-		clientes.get(cpf).abrirConta(new ContaCorrente(contasAbertasTotal, AGENCIA));
+	public static void abrirContaCorrente() throws AbrirContaException {
+		clientes.get(usuarioLogado).abrirConta(new ContaCorrente(contasAbertasTotal, AGENCIA));
 
 		contasAbertasTotal++;
 	}
 
-	public static void depositar(int cpf, double valor, Conta conta) throws ValorInvalidoException {
-		clientes.get(cpf).depositar(valor, conta);
+	public static void depositar(double valor, Conta conta) throws ValorInvalidoException {
+		clientes.get(usuarioLogado).depositar(valor, conta);
 	}
 
-	public static void sacar(int cpf, double valor, Conta conta) throws ValorInvalidoException, SaldoInsuficienteException {
-		clientes.get(cpf).sacar(valor, conta);
+	public static void sacar(double valor, Conta conta) throws ValorInvalidoException, SaldoInsuficienteException {
+		clientes.get(usuarioLogado).sacar(valor, conta);
 	}
 
-	public static void transferir(int cpf, double valor, Conta conta, Conta contaDestino) throws SaldoInsuficienteException, ValorInvalidoException {
-		clientes.get(cpf).transferir(valor, conta, contaDestino);
+	public static void transferir(double valor, Conta conta, Conta contaDestino) throws SaldoInsuficienteException, ValorInvalidoException {
+		clientes.get(usuarioLogado).transferir(valor, conta, contaDestino);
 	}
 
 }
