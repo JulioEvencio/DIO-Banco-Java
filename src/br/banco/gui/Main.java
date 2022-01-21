@@ -127,7 +127,7 @@ public class Main extends JFrame {
 	}
 
 	private void sacar() {
-		// Code
+		new Sacar(this).setVisible(true);
 	}
 
 	private void transferir() {
