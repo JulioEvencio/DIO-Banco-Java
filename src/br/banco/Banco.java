@@ -16,9 +16,10 @@ public class Banco {
 	private static final int AGENCIA = 123;
 	private static int contasAbertasTotal = 0;
 	private static final TreeMap<Integer, Cliente> clientes = new TreeMap<>();
+	private static int usuarioLogado = -1;
 
-	public static Cliente getCliente(int cpf) {
-		return clientes.get(cpf);
+	public static Cliente getUsuarioLogado() {
+		return clientes.get(usuarioLogado);
 	}
 
 	public static ArrayList<Integer> getContas() {
@@ -37,11 +38,21 @@ public class Banco {
 		return contas;
 	}
 
-
 	public static void cadastrarCliente(int cpf, String nome, String senha) throws CpfInvalidoException {
 		if (clientes.containsKey(cpf)) throw new CpfInvalidoException();
 
 		clientes.put(cpf, new Cliente(cpf, nome, senha));
+	}
+
+	public static boolean logar(int cpf, String senha) {
+		if (clientes.get(cpf).logar(cpf, senha)) usuarioLogado = cpf;
+		else return false;
+
+		return true;
+	}
+
+	public static void deslogar() {
+		usuarioLogado = -1;
 	}
 
 	public static void abrirContaPoupanca(int cpf) throws AbrirContaException {
@@ -56,7 +67,6 @@ public class Banco {
 		contasAbertasTotal++;
 	}
 
-	
 	public static void depositar(int cpf, double valor, Conta conta) throws ValorInvalidoException {
 		clientes.get(cpf).depositar(valor, conta);
 	}
