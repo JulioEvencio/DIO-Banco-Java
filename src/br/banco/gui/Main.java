@@ -129,7 +129,7 @@ public class Main extends JFrame {
 	}
 
 	private void exibirInfo() {
-		String info = "Banco Java --versão 1.0\n\nDesenvolvido por Júlio Evêncio";
+		String info = "Banco Java - versão 1.0\n\nDesenvolvido por Júlio Evêncio";
 		JOptionPane.showMessageDialog(this, info, "Sobre", JOptionPane.INFORMATION_MESSAGE);
 	}
 
