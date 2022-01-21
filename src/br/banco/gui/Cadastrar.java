@@ -1,5 +1,7 @@
 package br.banco.gui;
 
+import br.banco.Banco;
+import br.exception.CpfInvalidoException;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class Cadastrar extends JDialog {
@@ -121,7 +124,26 @@ public class Cadastrar extends JDialog {
 	}
 
 	private void cadastrar() {
-		// Code
+		try {
+			String nome = txtNome.getText();
+			int cpf = Integer.parseInt(txtCpf.getText());
+			String senha = new String(txtSenha.getPassword());
+
+			if (cpf <= 0) throw new NumberFormatException();
+
+			Banco.cadastrarCliente(cpf, nome, senha);
+
+			String info = "Cadastro realizado com sucesso!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.INFORMATION_MESSAGE);
+
+			this.dispose();
+		} catch (NumberFormatException e) {
+			String info = "Digite apenas números positivos no cpf!\nSem letras...";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+		} catch (CpfInvalidoException e) {
+			String info = "Já existe uma conta com esse CPf!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }
