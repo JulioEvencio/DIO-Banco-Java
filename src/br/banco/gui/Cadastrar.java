@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -15,13 +16,17 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
-public class Login extends JFrame {
+public class Cadastrar extends JDialog {
 
 	private JPanel panel;
 	private JPanel panelBorda;
 
 	private JPanel panelTitulo;
 	private JLabel lblTitulo;
+	
+	private JPanel panelNome;
+	private JLabel lblNome;
+	private JTextField txtNome;
 
 	private JPanel panelCpf;
 	private JLabel lblCpf;
@@ -32,15 +37,15 @@ public class Login extends JFrame {
 	private JPasswordField txtSenha;
 
 	private JPanel panelBotao;
-	private JButton btnEntrar;
 	private JButton btnCadastrar;
 
-	public Login() {
+	public Cadastrar(JFrame frame) {
+		super(frame, true);
 		this.iniciarComponentes();
 	}
 
 	private void iniciarComponentes() {
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setTitle("Banco Java");
 		this.setSize(400, 260);
 		this.setLocationRelativeTo(null);
@@ -64,9 +69,21 @@ public class Login extends JFrame {
 		panelTitulo = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panelBorda.add(panelTitulo);
 
-		lblTitulo = new JLabel("Login");
+		lblTitulo = new JLabel("Cadastrar");
 		lblTitulo.setFont(fontTitulo);
 		panelTitulo.add(lblTitulo);
+
+		panelNome = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		panelBorda.add(panelNome);
+
+		lblNome = new JLabel("Nome:");
+		lblNome.setFont(fontTexto);
+		panelNome.add(lblNome);
+
+		txtNome = new JTextField();
+		txtNome.setFont(fontCampo);
+		txtNome.setPreferredSize(new Dimension(300, 20));
+		panelNome.add(txtNome);
 
 		panelCpf = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panelBorda.add(panelCpf);
@@ -95,13 +112,6 @@ public class Login extends JFrame {
 		panelBotao = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		panelBorda.add(panelBotao);
 
-		btnEntrar = new JButton("Entrar");
-		btnEntrar.setFont(fontBotao);
-		btnEntrar.addActionListener((ActionEvent) -> {
-			this.entrar();
-		});
-		panelBotao.add(btnEntrar);
-
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.setFont(fontBotao);
 		btnCadastrar.addActionListener((ActionEvent) -> {
@@ -110,16 +120,8 @@ public class Login extends JFrame {
 		panelBotao.add(btnCadastrar);
 	}
 
-	private void entrar() {
-		// Code
-	}
-
 	private void cadastrar() {
-		new Cadastrar(this).setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new Login().setVisible(true);
+		// Code
 	}
 
 }
