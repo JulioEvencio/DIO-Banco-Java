@@ -1,5 +1,8 @@
 package br.banco.gui;
 
+import br.banco.Banco;
+import br.exception.ValorInvalidoException;
+import br.exception.SaldoInsuficienteException;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class Sacar extends JDialog {
@@ -73,8 +77,9 @@ public class Sacar extends JDialog {
 		panelBorda.add(panelConta);
 
 		txtConta = new JComboBox<>();
-		txtConta.addItem("Selecione a sua conta");
-		// Carregar contas
+		txtConta.addItem("Selecione a conta");
+		txtConta.addItem("Minha Conta Poupança");
+		txtConta.addItem("Minha Conta Corrente");
 		txtConta.setFont(fontCampo);
 		txtConta.setPreferredSize(new Dimension(365, 20));
 		panelConta.add(txtConta);
@@ -103,7 +108,33 @@ public class Sacar extends JDialog {
 	}
 
 	private void sacar() {
-		// Code
+		try {
+			double valor = Double.parseDouble(txtValor.getText());
+
+			if (txtConta.getSelectedItem().toString().equals("Selecione a conta")) {
+				String info = "Selecione uma conta!";
+				JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+				return;
+			} else if (txtConta.getSelectedItem().toString().equals("Minha Conta Poupança")) {
+				Banco.sacar(valor, Banco.getUsuarioLogado().getContaPoupanca().getNumero());
+			} else if (txtConta.getSelectedItem().toString().equals("Minha Conta Corrente")) {
+				Banco.sacar(valor, Banco.getUsuarioLogado().getContaCorrente().getNumero());
+			}
+
+			String info = "Saque realizado com sucesso!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.INFORMATION_MESSAGE);
+
+			this.dispose();
+		} catch (NumberFormatException | ValorInvalidoException e) {
+			String info = "Valor inálido!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+		} catch (SaldoInsuficienteException e) {
+			String info = "Saldo Insuficiente!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+		} catch (NullPointerException e) {
+			String info = "Conta inválida!\nVocê não tem o tipo de conta selecionada!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }
