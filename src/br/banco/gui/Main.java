@@ -28,6 +28,7 @@ public class Main extends JFrame {
 	private JMenuItem menuSair;
 
 	private JMenu menuOperacoes;
+	private JMenuItem menuExibirExtrato;
 	private JMenuItem menuDepositar;
 	private JMenuItem menuSacar;
 	private JMenuItem menuTransferir;
@@ -83,6 +84,12 @@ public class Main extends JFrame {
 		menuOperacoes = new JMenu("Operações");
 		menuBar.add(menuOperacoes);
 
+		menuExibirExtrato = new JMenuItem("Exibir Extrato");
+		menuExibirExtrato.addActionListener((ActionEvent) -> {
+			this.exibirExtrato();
+		});
+		menuOperacoes.add(menuExibirExtrato);
+
 		menuDepositar = new JMenuItem("Depositar");
 		menuDepositar.addActionListener((ActionEvent) -> {
 			this.depositar();
@@ -128,9 +135,8 @@ public class Main extends JFrame {
 		this.dispose();
 	}
 
-	private void exibirInfo() {
-		String info = "Banco Java - versão 1.0\n\nDesenvolvido por Júlio Evêncio";
-		JOptionPane.showMessageDialog(this, info, "Sobre", JOptionPane.INFORMATION_MESSAGE);
+	private void exibirExtrato() {
+		new ExibirExtrato(this).setVisible(true);
 	}
 
 	private void depositar() {
@@ -143,6 +149,11 @@ public class Main extends JFrame {
 
 	private void transferir() {
 		new Transferir(this).setVisible(true);
+	}
+
+	private void exibirInfo() {
+		String info = "Banco Java - versão 1.0\n\nDesenvolvido por Júlio Evêncio";
+		JOptionPane.showMessageDialog(this, info, "Sobre", JOptionPane.INFORMATION_MESSAGE);
 	}
 
 }

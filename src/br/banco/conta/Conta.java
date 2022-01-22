@@ -7,6 +7,7 @@ public abstract class Conta {
 	
 	protected final int numero;
 	protected final int agencia;
+	protected String extrato;
 	protected double saldo;
 
 	public Conta(int numero, int agencia) {
@@ -27,10 +28,17 @@ public abstract class Conta {
 		return saldo;
 	}
 
+	public String getExtrato() {
+		String extrato = this.extrato;
+		extrato += "Saldo: " + saldo;
+		return extrato;
+	}
+
 	public void depositar(double valor) throws ValorInvalidoException {
 		if (valor <= 0) throw new ValorInvalidoException();
 
 		saldo += valor;
+		extrato += "Deposito: " + valor + "\n";
 	}
 
 	public void sacar(double valor) throws ValorInvalidoException, SaldoInsuficienteException {
@@ -38,6 +46,7 @@ public abstract class Conta {
 		if (valor > saldo) throw new SaldoInsuficienteException();
 
 		saldo -= valor;
+		extrato += "Saque: " + valor + "\n";
 	}
 
 	public void transferir(double valor, Conta conta) throws SaldoInsuficienteException, ValorInvalidoException {
@@ -46,6 +55,8 @@ public abstract class Conta {
 
 		this.saldo -= valor;
 		conta.saldo += valor;
+		extrato += "Transfêrencia: -" + valor + "\n";
+		conta.extrato += "Transfêrencia: +" + valor + "\n";
 	}
 
 }
