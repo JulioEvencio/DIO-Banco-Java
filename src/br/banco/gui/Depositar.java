@@ -130,12 +130,12 @@ public class Depositar extends JDialog {
 				Banco.depositar(valor, Integer.parseInt(txtConta.getSelectedItem().toString()));
 			}
 
-			String info = "Deposito realizado com sucesso!";
+			String info = "Depósito realizado com sucesso!";
 			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.INFORMATION_MESSAGE);
 
 			this.dispose();
 		} catch (NumberFormatException | ValorInvalidoException e) {
-			String info = "Valor inálido!";
+			String info = "Valor inválido!";
 			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
 		} catch (NullPointerException e) {
 			String info = "Conta inválida!\nVocê não tem o tipo de conta selecionada!";

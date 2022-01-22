@@ -126,10 +126,10 @@ public class Sacar extends JDialog {
 
 			this.dispose();
 		} catch (NumberFormatException | ValorInvalidoException e) {
-			String info = "Valor inálido!";
+			String info = "Valor ivnálido!";
 			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
 		} catch (SaldoInsuficienteException e) {
-			String info = "Saldo Insuficiente!";
+			String info = "Saldo insuficiente!";
 			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
 		} catch (NullPointerException e) {
 			String info = "Conta inválida!\nVocê não tem o tipo de conta selecionada!";

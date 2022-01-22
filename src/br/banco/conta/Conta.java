@@ -38,7 +38,7 @@ public abstract class Conta {
 		if (valor <= 0) throw new ValorInvalidoException();
 
 		saldo += valor;
-		extrato += "Deposito: " + valor + "\n";
+		extrato += "Depósito: " + valor + "\n";
 	}
 
 	public void sacar(double valor) throws ValorInvalidoException, SaldoInsuficienteException {
