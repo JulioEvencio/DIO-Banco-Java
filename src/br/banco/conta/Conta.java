@@ -40,7 +40,7 @@ public abstract class Conta {
 		saldo -= valor;
 	}
 
-	public void transferirDinheiro(double valor, Conta conta) throws SaldoInsuficienteException, ValorInvalidoException {
+	public void transferir(double valor, Conta conta) throws SaldoInsuficienteException, ValorInvalidoException {
 		if (valor > saldo) throw new SaldoInsuficienteException();
 		if (valor <= 0) throw new ValorInvalidoException();
 

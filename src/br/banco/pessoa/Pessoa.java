@@ -4,7 +4,7 @@ public abstract class Pessoa {
 
 	protected final int cpf;
 	protected final String nome;
-	protected final String senha;
+	private final String senha;
 
 	public Pessoa(int cpf, String nome, String senha) {
 		this.cpf = cpf;

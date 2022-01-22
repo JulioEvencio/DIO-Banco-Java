@@ -47,7 +47,7 @@ public class Cliente extends Pessoa {
 	}
 
 	public void transferir(double valor, Conta conta, Conta contaDestino) throws SaldoInsuficienteException, ValorInvalidoException {
-		conta.transferirDinheiro(valor, contaDestino);
+		conta.transferir(valor, contaDestino);
 	}
 
 }

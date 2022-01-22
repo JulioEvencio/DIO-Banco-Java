@@ -14,7 +14,7 @@ import br.exception.CpfInvalidoException;
 public class Banco {
 
 	private static final int AGENCIA = 123;
-	private static int contasAbertasTotal = 0;
+	private static int contasAbertasTotal = 1;
 	private static final TreeMap<Integer, Cliente> clientes = new TreeMap<>();
 	private static int usuarioLogado = -1;
 
@@ -22,15 +22,33 @@ public class Banco {
 		return clientes.get(usuarioLogado);
 	}
 
+	private static Conta getConta(int numero) {
+		for (Cliente cliente: clientes.values()) {
+			if (cliente.getContaPoupanca() != null) {
+				if (cliente.getContaPoupanca().getNumero() == numero) {
+					return cliente.getContaPoupanca();
+				}
+			}
+
+			if (cliente.getContaCorrente() != null) {
+				if (cliente.getContaCorrente().getNumero() == numero) {
+					return cliente.getContaCorrente();
+				}
+			}
+		}
+
+		return null;
+	}
+
 	public static ArrayList<Integer> getContas() {
 		ArrayList<Integer> contas = new ArrayList<>();
 
 		for (Cliente cliente: clientes.values()) {
-			if (cliente.getContaPoupanca() != null) {
+			if (cliente.getContaPoupanca() != null && usuarioLogado != cliente.getCpf()) {
 				contas.add(cliente.getContaPoupanca().getNumero());
 			}
 
-			if (cliente.getContaCorrente() != null) {
+			if (cliente.getContaCorrente() != null && usuarioLogado != cliente.getCpf()) {
 				contas.add(cliente.getContaCorrente().getNumero());
 			}
 		}
@@ -69,16 +87,16 @@ public class Banco {
 		contasAbertasTotal++;
 	}
 
-	public static void depositar(double valor, Conta conta) throws ValorInvalidoException {
-		clientes.get(usuarioLogado).depositar(valor, conta);
+	public static void depositar(double valor, int conta) throws ValorInvalidoException {
+		clientes.get(usuarioLogado).depositar(valor, Banco.getConta(conta));
 	}
 
-	public static void sacar(double valor, Conta conta) throws ValorInvalidoException, SaldoInsuficienteException {
-		clientes.get(usuarioLogado).sacar(valor, conta);
+	public static void sacar(double valor, int conta) throws ValorInvalidoException, SaldoInsuficienteException {
+		clientes.get(usuarioLogado).sacar(valor, Banco.getConta(conta));
 	}
 
-	public static void transferir(double valor, Conta conta, Conta contaDestino) throws SaldoInsuficienteException, ValorInvalidoException {
-		clientes.get(usuarioLogado).transferir(valor, conta, contaDestino);
+	public static void transferir(double valor, int conta, int contaDestino) throws SaldoInsuficienteException, ValorInvalidoException {
+		clientes.get(usuarioLogado).transferir(valor, Banco.getConta(conta), Banco.getConta(contaDestino));
 	}
 
 }
