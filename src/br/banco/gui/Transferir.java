@@ -1,5 +1,9 @@
 package br.banco.gui;
 
+import br.banco.Banco;
+import br.exception.ValorInvalidoException;
+import br.exception.SaldoInsuficienteException;
+import java.util.ArrayList;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +18,7 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class Transferir extends JDialog {
@@ -76,8 +81,9 @@ public class Transferir extends JDialog {
 		panelBorda.add(panelConta);
 
 		txtConta = new JComboBox<>();
-		txtConta.addItem("Selecione a sua conta");
-		// Carregar contas
+		txtConta.addItem("Selecione a conta");
+		txtConta.addItem("Minha Conta Poupança");
+		txtConta.addItem("Minha Conta Corrente");
 		txtConta.setFont(fontCampo);
 		txtConta.setPreferredSize(new Dimension(365, 20));
 		panelConta.add(txtConta);
@@ -99,7 +105,15 @@ public class Transferir extends JDialog {
 
 		txtContaDestino = new JComboBox<>();
 		txtContaDestino.addItem("Selecione a conta destino");
-		// Carregar contas
+		txtContaDestino.addItem("Minha Conta Poupança");
+		txtContaDestino.addItem("Minha Conta Corrente");
+
+		ArrayList<Integer> contas = Banco.getContas();
+
+		for (int conta: contas) {
+			txtContaDestino.addItem(String.valueOf(conta));
+		}
+
 		txtContaDestino.setFont(fontCampo);
 		txtContaDestino.setPreferredSize(new Dimension(365, 20));
 		panelContaDestino.add(txtContaDestino);
@@ -116,7 +130,49 @@ public class Transferir extends JDialog {
 	}
 
 	private void tranferir() {
-		// Code
+		try {
+			int conta;
+			int contaDestino;
+			double valor = Double.parseDouble(txtValor.getText());
+
+			if (txtConta.getSelectedItem().toString().equals("Minha Conta Poupança")) {
+				conta = Banco.getUsuarioLogado().getContaPoupanca().getNumero();
+			} else if (txtConta.getSelectedItem().toString().equals("Minha Conta Corrente")) {
+				conta = Banco.getUsuarioLogado().getContaCorrente().getNumero();
+			} else {
+				String info = "Selecione uma conta!";
+				JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			if (txtContaDestino.getSelectedItem().toString().equals("Selecione a conta destino")) {
+				String info = "Selecione uma conta Destino!";
+				JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+				return;
+			} else if (txtContaDestino.getSelectedItem().toString().equals("Minha Conta Poupança")) {
+				contaDestino = Banco.getUsuarioLogado().getContaPoupanca().getNumero();
+			} else if (txtContaDestino .getSelectedItem().toString().equals("Minha Conta Corrente")) {
+				contaDestino = Banco.getUsuarioLogado().getContaCorrente().getNumero();
+			} else {
+				contaDestino = Integer.parseInt(txtContaDestino.getSelectedItem().toString());
+			}
+
+			Banco.transferir(valor, conta, contaDestino);
+
+			String info = "Transferência realizada com sucesso!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.INFORMATION_MESSAGE);
+
+			this.dispose();
+		} catch (NumberFormatException | ValorInvalidoException e) {
+			String info = "Valor inálido!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+		} catch (SaldoInsuficienteException e) {
+			String info = "Saldo Insuficiente!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+		} catch (NullPointerException e) {
+			String info = "Conta inválida!\nVocê não tem o tipo de conta selecionada!";
+			JOptionPane.showMessageDialog(this, info, "Banco Java", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }
