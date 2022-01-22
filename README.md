@@ -1,4 +1,4 @@
-# DIO-Banco-Java
+# DIO - Banco Java
 
 Este repositório é para o bootcamp da DIO (Digital Innovation One)
 
